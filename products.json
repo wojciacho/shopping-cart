@@ -1,0 +1,68 @@
+{
+  "items": [
+    {
+      "sys": {"id": "1"},
+      "fields": {
+        "title": "blazer",
+        "price": 299.99,
+        "image": {"fields": {"file": {"url": "./img/blazer.png"}}}
+      }
+    },
+    {
+      "sys": {"id": "2"},
+      "fields": {
+        "title": "blazer",
+        "price": 299.99,
+        "image": {"fields": {"file": {"url": "./img/blazer2.png"}}}
+      }
+    },
+    {
+      "sys": {"id": "3"},
+      "fields": {
+        "title": "crater",
+        "price": 399.99,
+        "image": {"fields": {"file": {"url": "./img/crater.png"}}}
+      }
+    },
+    {
+      "sys": {"id": "4"},
+      "fields": {
+        "title": "hippie",
+        "price": 149.99,
+        "image": {"fields": {"file": {"url": "./img/hippie.png"}}}
+      }
+    },
+    {
+      "sys": {"id": "5"},
+      "fields": {
+        "title": "jordan",
+        "price": 129.99,
+        "image": {"fields": {"file": {"url": "./img/jordan22.png"}}}
+      }
+    },
+    {
+      "sys": {"id": "6"},
+      "fields": {
+        "title": "air force",
+        "price": 319.99,
+        "image": {"fields": {"file": {"url": "./img/air.png"}}}
+      }
+    },
+    {
+      "sys": {"id": "7"},
+      "fields": {
+        "title": "hippie",
+        "price": 449.99,
+        "image": {"fields": {"file": {"url": "./img/hippie2.png"}}}
+      }
+    },
+    {
+      "sys": {"id": "8"},
+      "fields": {
+        "title": "air force",
+        "price": 229.99,
+        "image": {"fields": {"file": {"url": "./img/air2.png"}}}
+      }
+    }
+  ]
+}
