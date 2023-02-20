@@ -88,8 +88,47 @@ const clearCartItems = () => {
   cartContainer.classList.remove("transparent");
 };
 
+const cartButtons = (e) => {
+  if (e.target.classList.contains("remove-item")) {
+    let item = e.target;
+    let id = item.dataset.id;
+    cartContent.removeChild(item.parentElement.parentElement);
+    removeItem(id);
+    if (cartContent.children.length === 0) {
+      cartEl.classList.remove("show");
+      cartContainer.classList.remove("transparent");
+    }
+  } else if (e.target.classList.contains("fa-chevron-up")) {
+    let addAmount = e.target;
+    let id = addAmount.dataset.id;
+    let tempItem = items.find((item) => item.id === id);
+    tempItem.amount = tempItem.amount + 1;
+    saveCart(items);
+    setCartValues(items);
+    addAmount.nextElementSibling.innerText = tempItem.amount;
+  } else if (e.target.classList.contains("fa-chevron-down")) {
+    let lowerAmount = e.target;
+    let id = lowerAmount.dataset.id;
+    let tempItem = items.find((item) => item.id === id);
+    tempItem.amount = tempItem.amount - 1;
+    if (tempItem.amount > 0) {
+      saveCart(items);
+      setCartValues(items);
+      lowerAmount.previousElementSibling.innerText = tempItem.amount;
+    } else {
+      cartContent.removeChild(lowerAmount.parentElement.parentElement);
+      removeItem(id);
+      if (cartContent.children.length === 0) {
+        cartEl.classList.remove("show");
+        cartContainer.classList.remove("transparent");
+      }
+    }
+  }
+};
+
 export const cartFunctionality = () => {
   clearBtn.addEventListener("click", clearCartItems);
+  cartContent.addEventListener("click", cartButtons);
 };
 
 export const getCartItems = () => {
