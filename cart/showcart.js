@@ -19,3 +19,5 @@ export const openCart = () => {
   cartOverlay.classList.add("transparent");
   cart.classList.add("show");
 };
+
+export default cartOpen
