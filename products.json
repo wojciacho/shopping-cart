@@ -4,7 +4,8 @@
       "sys": {"id": "1"},
       "fields": {
         "title": "blazer",
-        "price": 299.99,
+        "price": 29999,
+        "featured": true,
         "image": {"fields": {"file": {"url": "./img/blazer.png"}}}
       }
     },
@@ -12,7 +13,8 @@
       "sys": {"id": "2"},
       "fields": {
         "title": "blazer",
-        "price": 299.99,
+        "price": 29999,
+        "featured": true,
         "image": {"fields": {"file": {"url": "./img/blazer2.png"}}}
       }
     },
@@ -20,7 +22,8 @@
       "sys": {"id": "3"},
       "fields": {
         "title": "crater",
-        "price": 399.99,
+        "price": 39999,
+        "featured": true,
         "image": {"fields": {"file": {"url": "./img/crater.png"}}}
       }
     },
@@ -28,7 +31,8 @@
       "sys": {"id": "4"},
       "fields": {
         "title": "hippie",
-        "price": 149.99,
+        "price": 14999,
+        "featured": false,
         "image": {"fields": {"file": {"url": "./img/hippie.png"}}}
       }
     },
@@ -36,7 +40,8 @@
       "sys": {"id": "5"},
       "fields": {
         "title": "jordan",
-        "price": 129.99,
+        "price": 12999,
+        "featured": false,
         "image": {"fields": {"file": {"url": "./img/jordan22.png"}}}
       }
     },
@@ -44,7 +49,8 @@
       "sys": {"id": "6"},
       "fields": {
         "title": "air force",
-        "price": 319.99,
+        "price": 31999,
+        "featured": false,
         "image": {"fields": {"file": {"url": "./img/air.png"}}}
       }
     },
@@ -52,7 +58,8 @@
       "sys": {"id": "7"},
       "fields": {
         "title": "hippie",
-        "price": 449.99,
+        "price": 44999,
+        "featured": false,
         "image": {"fields": {"file": {"url": "./img/hippie2.png"}}}
       }
     },
@@ -60,8 +67,18 @@
       "sys": {"id": "8"},
       "fields": {
         "title": "air force",
-        "price": 229.99,
+        "price": 22999,
+        "featured": false,
         "image": {"fields": {"file": {"url": "./img/air2.png"}}}
+      }
+    },
+    {
+      "sys": {"id": "9"},
+      "fields": {
+        "title": "jordan",
+        "price": 12999,
+        "featured": false,
+        "image": {"fields": {"file": {"url": "./img/jordan2.png"}}}
       }
     }
   ]

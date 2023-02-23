@@ -1,147 +1,15 @@
-import {setCartValues} from "./cart/cartvalues.js";
-import {displayCart} from "./cart/displaycart.js";
-import {populate} from "./cart/populatecart.js";
-import {showCart} from "./cart/showcart.js";
-import {getCart, getItems, saveCart, saveItems} from "./localstorage.js";
+import {getItems, saveItems} from "./utils/localstorage.js";
 
-let items = [];
-let buttonsDOM = [];
+let store = getItems("store");
 
-const productsEl = document.querySelector(".products-content"),
-  cartBtn = document.querySelector(".cart-btn"),
-  closeBtn = document.querySelector(".close-btn"),
-  clearBtn = document.querySelector(".clear-btn"),
-  cartContainer = document.querySelector(".cart-container"),
-  cartEl = document.querySelector(".cart"),
-  cartContent = document.querySelector(".cart-content");
-
-export const getData = async () => {
-  const response = await fetch("products.json");
-  const data = await response.json();
-  let products = data.items;
-  products = products.map((item) => {
-    const {title, price} = item.fields;
+const setupStore = (products) => {
+  store = products.items.map((item) => {
+    const {title, price, featured} = item.fields;
     const {id} = item.sys;
     const image = item.fields.image.fields.file.url;
-    return {title, price, id, image};
+    return {title, price, id, image, featured};
   });
-  let result = "";
-  products.forEach((product) => {
-    result += `<article class="product">
-      <div class="img-container">
-        <img src="${product.image}" alt="product" class="product-img" />
-        <button class="bag-btn" data-id="${product.id}">
-          <i class="fas fa-shopping-cart"></i>
-          add to cart
-        </button>
-      </div>
-      <h3>${product.title}</h3>
-      <h4>$${product.price}</h4>
-    </article>`;
-  });
-
-  productsEl.innerHTML = result;
-  saveItems(products);
-  const buttons = [...document.querySelectorAll(".bag-btn")];
-  buttonsDOM = buttons;
-  buttons.forEach((button) => {
-    let id = button.dataset.id;
-    let cart = items.find((item) => item.id === id);
-    if (cart) {
-      button.innerText = "in cart";
-      button.disabled = true;
-    }
-
-    button.addEventListener("click", (e) => {
-      e.target.innerText = "in cart";
-      e.target.disabled = true;
-      let cartItem = {...getItems(id), amount: 1};
-      items = [...items, cartItem];
-      saveCart(items);
-      setCartValues(items);
-      displayCart(cartItem);
-      showCart();
-    });
-  });
+  saveItems("store", store);
 };
 
-const singleButton = (id) => {
-  return buttonsDOM.find((button) => button.dataset.id === id);
-};
-
-const removeItem = (id) => {
-  items = items.filter((item) => item.id !== id);
-  setCartValues(items);
-  saveCart(items);
-  let button = singleButton(id);
-  button.disabled = false;
-  button.innerHTML = `<i class="fas fa-shopping-cart"></i>add to cart`;
-};
-
-const clearCartItems = () => {
-  let cartItems = items.map((item) => item.id);
-  cartItems.forEach((id) => removeItem(id));
-  while (cartContent.children.length > 0) {
-    cartContent.removeChild(cartContent.children[0]);
-  }
-  cartEl.classList.remove("show");
-  cartContainer.classList.remove("transparent");
-};
-
-const cartButtons = (e) => {
-  if (e.target.classList.contains("remove-item")) {
-    let item = e.target;
-    let id = item.dataset.id;
-    cartContent.removeChild(item.parentElement.parentElement);
-    removeItem(id);
-    if (cartContent.children.length === 0) {
-      cartEl.classList.remove("show");
-      cartContainer.classList.remove("transparent");
-    }
-  } else if (e.target.classList.contains("fa-chevron-up")) {
-    let addAmount = e.target;
-    let id = addAmount.dataset.id;
-    let tempItem = items.find((item) => item.id === id);
-    tempItem.amount = tempItem.amount + 1;
-    saveCart(items);
-    setCartValues(items);
-    addAmount.nextElementSibling.innerText = tempItem.amount;
-  } else if (e.target.classList.contains("fa-chevron-down")) {
-    let lowerAmount = e.target;
-    let id = lowerAmount.dataset.id;
-    let tempItem = items.find((item) => item.id === id);
-    tempItem.amount = tempItem.amount - 1;
-    if (tempItem.amount > 0) {
-      saveCart(items);
-      setCartValues(items);
-      lowerAmount.previousElementSibling.innerText = tempItem.amount;
-    } else {
-      cartContent.removeChild(lowerAmount.parentElement.parentElement);
-      removeItem(id);
-      if (cartContent.children.length === 0) {
-        cartEl.classList.remove("show");
-        cartContainer.classList.remove("transparent");
-      }
-    }
-  }
-};
-
-export const cartFunctionality = () => {
-  clearBtn.addEventListener("click", clearCartItems);
-  cartContent.addEventListener("click", cartButtons);
-};
-
-export const getCartItems = () => {
-  items = getCart();
-  setCartValues(items);
-  populate(items);
-  cartBtn.addEventListener("click", () => {
-    cartEl.classList.add("show");
-    cartContainer.classList.add("transparent");
-  });
-
-  closeBtn.addEventListener("click", () => {
-    cartEl.classList.remove("show");
-    cartContainer.classList.remove("transparent");
-  });
-};
+export {setupStore, store};

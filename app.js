@@ -1,26 +1,20 @@
-import {getData, getCartItems, cartFunctionality} from "./setup.js";
 
-document.addEventListener("DOMContentLoaded", () => {
-  getCartItems();
-  getData();
-  cartFunctionality();
-});
+import {fetchProducts} from "./fetchProducts.js";
+import {setupStore, store} from "./setup.js";
+import {getElement} from "./utils/getElement.js";
+import "./cart/showCart.js";
+import "./toggleNav.js";
+import {displayProducts} from "./displayProducts.js";
 
-const navMenu = document.querySelector(".navbar-list"),
-  navOpenButton = document.querySelector(".open-btn"),
-  navCloseButton = document.querySelector(".close-nav-btn"),
-  logoEl = document.querySelector(".logo");
+const init = async () => {
+  const products = await fetchProducts();
+  if (products) {
+    setupStore(products);
+    const featured = store.filter((product) => product.featured === true);
+    displayProducts(featured, getElement(".products-content"));
+  }
+};
 
-navOpenButton.addEventListener("click", () => {
-  navMenu.classList.add("active");
-  navOpenButton.classList.add("hide");
-  document.body.classList.add("disabled-scroll");
-  logoEl.classList.add("hidden");
-});
-
-navCloseButton.addEventListener("click", () => {
-  navMenu.classList.remove("active");
-  navOpenButton.classList.remove("hide");
-  document.body.classList.remove("disabled-scroll");
-  logoEl.classList.remove("hidden");
+window.addEventListener("DOMContentLoaded", () => {
+  init();
 });

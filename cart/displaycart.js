@@ -1,3 +1,5 @@
+import {formatPrice} from "../formatPrice.js";
+
 const cartContent = document.querySelector(".cart-content");
 
 export const displayCart = (item) => {
@@ -6,7 +8,7 @@ export const displayCart = (item) => {
   element.innerHTML = `<img src="${item.image}" alt="cart" />
     <div>
       <h4>${item.title}</h4>
-      <h5>$${item.price}</h5>
+      <h5>${formatPrice(item.price)}</h5>
       <span class="remove-item" data-id=${item.id}>remove</span>
     </div>
     <div>
