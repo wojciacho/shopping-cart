@@ -1,3 +1,3 @@
-import '../toggleNav.js'
-import '../cart/showCart.js'
-import '../cart/setupCart.js'
+import "../toggleNav.js";
+import "../cart/showCart.js";
+import "../cart/setupCart.js";

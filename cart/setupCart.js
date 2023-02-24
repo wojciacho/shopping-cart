@@ -6,10 +6,8 @@ import {cartDom} from "./cartDom.js";
 import {findProduct} from "./findProduct.js";
 
 const cartAmount = getElement(".cart-items"),
-  cartItem = getElement(".cart-item"),
   cartContent = getElement(".cart-content"),
-  cartTotal = getElement(".cart-total"),
-  itemAmount = getElement(".cart-total");
+  cartTotal = getElement(".cart-total");
 
 let cart = getItems("cart");
 
@@ -44,6 +42,18 @@ const increaseCart = (id) => {
   return newAmount;
 };
 
+const decreaseCart = (id) => {
+  let newAmount;
+  cart = cart.map((cartItem) => {
+    if (cartItem.id === id) {
+      newAmount = cartItem.amount - 1;
+      cartItem = {...cartItem, amount: newAmount};
+    }
+    return cartItem;
+  });
+  return newAmount;
+};
+
 const displayCartAmount = () => {
   const amount = cart.reduce((total, cartItem) => {
     return (total += cartItem.amount);
@@ -58,7 +68,42 @@ const displayCartTotal = () => {
   cartTotal.textContent = formatPrice(total);
 };
 
-const cartFunctionality = () => {};
+const removeItem = (id) => {
+  cart = cart.filter((item) => item.id !== id);
+};
+
+const cartFunctionality = () => {
+  cartContent.addEventListener("click", (e) => {
+    const element = e.target;
+    const id = e.target.dataset.id;
+    const parent = e.target.parentElement;
+    const parentID = e.target.parentElement.dataset.id;
+
+    if (element.classList.contains("remove-item")) {
+      removeItem(id);
+      element.parentElement.parentElement.remove();
+    }
+
+    if (element.classList.contains("fa-chevron-up")) {
+      const newAmount = increaseCart(id);
+      element.nextElementSibling.textContent = newAmount;
+    }
+
+    if (element.classList.contains("fa-chevron-down")) {
+      const newAmount = decreaseCart(id);
+      if (newAmount === 0) {
+        removeItem(id);
+        element.parentElement.parentElement.remove();
+      } else {
+        element.previousElementSibling.textContent = newAmount;
+      }
+    }
+
+    displayCartAmount();
+    displayCartTotal();
+    saveItems("cart", cart);
+  });
+};
 
 const displayCartItems = () => {
   cart.forEach((item) => {

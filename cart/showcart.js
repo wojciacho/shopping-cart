@@ -20,4 +20,4 @@ export const openCart = () => {
   cart.classList.add("show");
 };
 
-export default cartOpen
+export default cartOpen;

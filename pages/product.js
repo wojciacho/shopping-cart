@@ -7,14 +7,14 @@ import {formatPrice} from "../formatPrice.js";
 import {fetchProducts} from "../fetchProducts.js";
 import {setupStore, store} from "../setup.js";
 
-const pageTitle = getElement(".page-hero-title")
+const pageTitle = getElement(".page-hero-title");
 
 const displayProduct = (products, element) => {
   element.innerHTML = products
     .map((product) => {
       const {id, title, image, price} = product;
-      document.title = `${title.toUpperCase()} | .STORE`
-      pageTitle.textContent = `HOME / ${title}`
+      document.title = `${title.toUpperCase()} | .STORE`;
+      pageTitle.textContent = `HOME / ${title}`;
       return `<div class="section-center single-product-center">
       <img src="${image}" class="single-product-img img"alt="">
       <article class="single-product-info">
@@ -47,4 +47,3 @@ window.addEventListener("DOMContentLoaded", async () => {
     displayProduct(singleProduct, getElement(".single-product"));
   }
 });
-

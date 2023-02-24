@@ -1,4 +1,3 @@
-
 import {fetchProducts} from "./fetchProducts.js";
 import {setupStore, store} from "./setup.js";
 import {getElement} from "./utils/getElement.js";
